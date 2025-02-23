@@ -14,18 +14,13 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Auth;
 [Route("api/[controller]")]
 public class AuthController : BaseController
 {
-    private readonly IMediator _mediator;
-    private readonly IMapper _mapper;
-
     /// <summary>
     /// Initializes a new instance of AuthController
     /// </summary>
     /// <param name="mediator">The mediator instance</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    public AuthController(IMediator mediator, IMapper mapper)
+    public AuthController(IMediator mediator, IMapper mapper) : base(mediator, mapper)
     {
-        _mediator = mediator;
-        _mapper = mapper;
     }
 
     /// <summary>
