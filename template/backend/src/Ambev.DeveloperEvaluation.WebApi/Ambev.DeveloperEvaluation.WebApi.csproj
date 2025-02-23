@@ -41,10 +41,8 @@
     <Folder Include="Features\Carts\GetCart\" />
     <Folder Include="Features\Carts\ListCart\" />
     <Folder Include="Features\Carts\UpdateCart\" />
-    <Folder Include="Features\Products\CreateProduct\" />
     <Folder Include="Features\Products\DeleteProduct\" />
     <Folder Include="Features\Products\GetProduct\" />
-    <Folder Include="Features\Products\ListProduct\" />
     <Folder Include="Features\Products\UpdateProduct\" />
     <Folder Include="Features\Users\GetUser\" />
     <Folder Include="Features\Users\DeleteUser\" />

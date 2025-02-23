@@ -30,7 +30,7 @@ public class User : BaseEntity, IUser
     /// Gets the user's phone number.
     /// Must be a valid phone number format following the pattern (XX) XXXXX-XXXX.
     /// </summary>
-    public string Phone { get; set; } = string.Empty ;
+    public string Phone { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets the hashed password for authentication.
@@ -89,61 +89,61 @@ public class User : BaseEntity, IUser
         CreatedAt = DateTime.UtcNow;
     }
 
-    /// <summary>
-    /// Performs validation of the user entity using the UserValidator rules.
-    /// </summary>
-    /// <returns>
-    /// A <see cref="ValidationResultDetail"/> containing:
-    /// - IsValid: Indicates whether all validation rules passed
-    /// - Errors: Collection of validation errors if any rules failed
-    /// </returns>
-    /// <remarks>
-    /// <listheader>The validation includes checking:</listheader>
-    /// <list type="bullet">Username format and length</list>
-    /// <list type="bullet">Email format</list>
-    /// <list type="bullet">Phone number format</list>
-    /// <list type="bullet">Password complexity requirements</list>
-    /// <list type="bullet">Role validity</list>
-    /// 
-    /// </remarks>
-    public ValidationResultDetail Validate()
-    {
-        var validator = new UserValidator();
-        var result = validator.Validate(this);
-        return new ValidationResultDetail
-        {
-            IsValid = result.IsValid,
-            Errors = result.Errors.Select(o => (ValidationErrorDetail)o)
-        };
-    }
+    ///// <summary>
+    ///// Performs validation of the user entity using the UserValidator rules.
+    ///// </summary>
+    ///// <returns>
+    ///// A <see cref="ValidationResultDetail"/> containing:
+    ///// - IsValid: Indicates whether all validation rules passed
+    ///// - Errors: Collection of validation errors if any rules failed
+    ///// </returns>
+    ///// <remarks>
+    ///// <listheader>The validation includes checking:</listheader>
+    ///// <list type="bullet">Username format and length</list>
+    ///// <list type="bullet">Email format</list>
+    ///// <list type="bullet">Phone number format</list>
+    ///// <list type="bullet">Password complexity requirements</list>
+    ///// <list type="bullet">Role validity</list>
+    ///// 
+    ///// </remarks>
+    //public ValidationResultDetail Validate()
+    //{
+    //    var validator = new UserValidator();
+    //    var result = validator.Validate(this);
+    //    return new ValidationResultDetail
+    //    {
+    //        IsValid = result.IsValid,
+    //        Errors = result.Errors.Select(o => (ValidationErrorDetail)o)
+    //    };
+    //}
 
     /// <summary>
     /// Activates the user account.
     /// Changes the user's status to Active.
     /// </summary>
-    public void Activate()
+    public override void Activate()
     {
         Status = UserStatus.Active;
-        UpdatedAt = DateTime.UtcNow;
+        base.Activate();
     }
 
     /// <summary>
     /// Deactivates the user account.
     /// Changes the user's status to Inactive.
     /// </summary>
-    public void Deactivate()
+    public override void Deactivate()
     {
         Status = UserStatus.Inactive;
-        UpdatedAt = DateTime.UtcNow;
+        base.Deactivate();
     }
 
     /// <summary>
     /// Blocks the user account.
     /// Changes the user's status to Blocked.
     /// </summary>
-    public void Suspend()
+    public override void Suspend()
     {
         Status = UserStatus.Suspended;
-        UpdatedAt = DateTime.UtcNow;
+        base.Suspend();
     }
 }

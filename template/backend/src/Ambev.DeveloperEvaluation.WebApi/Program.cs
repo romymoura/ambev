@@ -21,6 +21,8 @@ public class Program
             Log.Information("Starting web application");
 
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+
             builder.AddDefaultLogging();
 
             builder.Services.AddControllers();
