@@ -22,6 +22,18 @@ public class Program
 
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin", policy =>
+                {
+                    //policy.WithOrigins("http://localhost:4200") // Permite chamadas do Angular
+                    policy.WithOrigins("*") // Permite chamadas do Angular
+                          .AllowAnyMethod() // Permite qualquer método (GET, POST, PUT, DELETE, etc.)
+                          .AllowAnyHeader(); // Permite qualquer cabeçalho
+                          //.AllowCredentials(); // Permite envio de credenciais (cookies, autenticação)
+                });
+            });
+
 
             builder.AddDefaultLogging();
 
@@ -55,6 +67,8 @@ public class Program
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             var app = builder.Build();
+
+            app.UseCors("AllowSpecificOrigin");
             app.UseMiddleware<InterceptExceptionMiddleware>();
 
             if (app.Environment.IsDevelopment())
