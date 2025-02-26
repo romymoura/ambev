@@ -8,6 +8,9 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Users.DeleteUser;
 using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 using Ambev.DeveloperEvaluation.Application.Users.GetUser;
 using Ambev.DeveloperEvaluation.Application.Users.DeleteUser;
+using Ambev.DeveloperEvaluation.Application.Products.GetListProduct;
+using Ambev.DeveloperEvaluation.WebApi.Features.Products.ListProduct;
+using Ambev.DeveloperEvaluation.Application.Products.GetListUser;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users;
 
@@ -111,6 +114,23 @@ public class UsersController : BaseController
         {
             Success = true,
             Message = "User deleted successfully"
+        });
+    }
+
+    [HttpGet("user-list")]
+    [ProducesResponseType(typeof(ApiResponseWithData<GetUserResponse>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UserList([FromQuery] PaginatedRequest paginated, CancellationToken cancellationToken)
+    {
+        var command = _mapper.Map<GetListUserCommand>(paginated);
+        var response = await _mediator.Send(command, cancellationToken);
+        var data = _mapper.Map<IEnumerable<GetUserListResponse>>(response);
+
+        return Ok(new ApiResponseWithData<IEnumerable<GetUserListResponse>>
+        {
+            Success = true,
+            Message = "User list successfully",
+            Data = data
         });
     }
 }

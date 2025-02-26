@@ -52,4 +52,26 @@ public class AuthController : BaseController
             Data = result
         });
     }
+
+    [HttpPost("recover-password")]
+    [ProducesResponseType(typeof(ApiResponseWithData<AuthenticateUserResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> RecoverPasswordUser([FromBody] AuthenticateUserRequest request, CancellationToken cancellationToken)
+    {
+        var validator = new AuthenticateRecoverPassUserRequestValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
+        // TODO: Implementar processamento de envio de e-mail com link de recuperação de senha para o usuário
+
+        return Ok(new ApiResponseWithData<AuthenticateUserResponse>
+        {
+            Success = true,
+            Message = "Email sended to recover password.",
+            Data = null
+        });
+    }
 }
