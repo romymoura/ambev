@@ -117,7 +117,7 @@ public class UsersController : BaseController
         });
     }
 
-    [HttpGet("user-list")]
+    [HttpGet()]
     [ProducesResponseType(typeof(ApiResponseWithData<GetUserResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UserList([FromQuery] PaginatedRequest paginated, CancellationToken cancellationToken)
