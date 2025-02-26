@@ -1,6 +1,6 @@
 # Flow documents
 
-![Descrição da imagem](assets/Diagrama da aplicação visão de negocio.svg)
+![Descrição da imagem](assets/fluxo.png)
 <!-- <img src="https://github.com/romymoura/ambev/blob/feature/products/Diagrama%20da%20aplica%C3%A7%C3%A3o%20vis%C3%A3o%20de%20negocio.svg"> -->
 
 
