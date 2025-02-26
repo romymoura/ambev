@@ -67,4 +67,17 @@ public class UserRepository : BaseRepository, IUserRepository
         await _context.SaveChangesAsync(cancellationToken);
         return true;
     }
+
+    public async Task<IEnumerable<User>?> GetListAsync(int? page, int? size, CancellationToken cancellationToken = default)
+    {
+        if (page is null && size is null)
+            return await _context.Users.ToListAsync(cancellationToken);
+
+        var skip = (page - 1) * size;
+        var query = _context.Products.AsQueryable();
+
+        var result = await query.Skip(skip ?? 1).Take(size ?? 10).ToListAsync(cancellationToken);
+
+        return (IEnumerable<User>?)result;
+    }
 }
