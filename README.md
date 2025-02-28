@@ -34,7 +34,16 @@
       profile: Customer   
     </pre>
    
-  
+![image](https://github.com/user-attachments/assets/ae31345f-d5f3-45a2-a88b-86b222118aa8)
+
+![image](https://github.com/user-attachments/assets/9b123c43-3633-4250-a4b3-15cfd9f10d20)
+
+![image](https://github.com/user-attachments/assets/ca8e89af-07a6-4f5d-9fe4-bf212fa2ed5f)
+
+![image](https://github.com/user-attachments/assets/11d15dc1-e25d-4338-957f-0954352a5994)
+
+
+  	
 	
 # Developer Evaluation Project /// Doc implementation
 
