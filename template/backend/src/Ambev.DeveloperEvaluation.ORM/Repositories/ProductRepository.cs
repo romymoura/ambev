@@ -28,7 +28,10 @@ public class ProductRepository : BaseRepository, IProductRepository
     public async Task<IEnumerable<Product>?> GetListAsync(int? page, int? size, CancellationToken cancellationToken = default)
     {
         if (page is null && size is null)
-            return await _context.Products.ToListAsync(cancellationToken);
+            return await _context.Products
+                .AsQueryable()
+                .Include(x => x.Rating)
+                .ToListAsync(cancellationToken);
 
         var skip = (page - 1) * size;
         var query = _context.Products.AsQueryable();

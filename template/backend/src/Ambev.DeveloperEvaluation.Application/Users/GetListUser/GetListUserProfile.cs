@@ -5,12 +5,12 @@ using AutoMapper;
 namespace Ambev.DeveloperEvaluation.Application.Products.GetListProduct;
 
 /// <summary>
-/// Profile for mapping between User entity and CreateUserResponse
+/// Profile GetListUserProfile
 /// </summary>
 public class GetListUserProfile : Profile
 {
     /// <summary>
-    /// Initializes the mappings for CreateUser operation
+    /// Initializes the mappings for ListUser
     /// </summary>
     public GetListUserProfile()
     {
