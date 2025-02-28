@@ -14,14 +14,29 @@
  * If you prefer, you can run VS2022 to check the APIs.
  
 	## Postman the collection in ./template/collection-postman
+  
+# Database.
+
+  * Open "Package Manager Console" selected dll .ORM where is migrations and exc: Update-Database, then created tables and data table
+  * Access portal with users:  
+    <pre>
+      Obs: TSC is my corporation
+      User: manager@tsc.com
+      pass: @Manager123
+      profile: Manager
+
+      User: admin@tsc.com
+      pass: @Admin123
+      profile: Admin
+
+      User: customer@tsc.com
+      pass: @Customer123
+      profile: Customer   
+    </pre>
+   
+  
 	
- 
- 
- 
-
-
 # Developer Evaluation Project /// Doc implementation
-
 
 `READ CAREFULLY`
 
