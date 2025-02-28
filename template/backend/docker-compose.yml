@@ -56,10 +56,10 @@ services:
     volumes:
       - ./data/redis_data:/data
     environment:
-       MONGO_INITDB_ROOT_USERNAME: developer
-       MONGO_INITDB_ROOT_PASSWORD: ev@luAt10n
+       #MONGO_INITDB_ROOT_USERNAME: developer
+       REDIS_PASSWORD: ev@luAt10n
     ports:
-      - "6380:6380"
+      - "6379:6379"
     networks:
       - proxy.tsc.localhost
 networks:

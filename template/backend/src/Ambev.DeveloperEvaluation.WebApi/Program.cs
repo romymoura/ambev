@@ -1,4 +1,5 @@
 using Ambev.DeveloperEvaluation.Application;
+using Ambev.DeveloperEvaluation.Cache;
 using Ambev.DeveloperEvaluation.Common.HealthChecks;
 using Ambev.DeveloperEvaluation.Common.Logging;
 using Ambev.DeveloperEvaluation.Common.Security;
@@ -7,8 +8,12 @@ using Ambev.DeveloperEvaluation.IoC;
 using Ambev.DeveloperEvaluation.ORM;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Serilog;
+using StackExchange.Redis;
+using System.Security.Claims;
 
 namespace Ambev.DeveloperEvaluation.WebApi;
 
@@ -19,14 +24,12 @@ public class Program
         try
         {
             Log.Information("Starting web application");
-
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin", policy =>
                 {
-                    //policy.WithOrigins("http://localhost:4200") // Permite chamadas do Angular
                     policy.WithOrigins("*") // Permite chamadas do Angular
                           .AllowAnyMethod() // Permite qualquer método (GET, POST, PUT, DELETE, etc.)
                           .AllowAnyHeader(); // Permite qualquer cabeçalho
@@ -36,7 +39,6 @@ public class Program
 
 
             builder.AddDefaultLogging();
-
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
 
@@ -66,8 +68,47 @@ public class Program
 
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-            var app = builder.Build();
+            // Add Redis
+            builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection("Redis"));
+            
+            //var redisConnectionString = builder.Configuration.GetConnectionString("Redis") ?? string.Empty;
+            //builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnectionString));
+            
 
+            // Authorization services
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("OnlyManager", policy => policy.RequireAssertion(h => 
+                    h.User.FindFirstValue(ClaimTypes.Role).Contains("Manager"))
+                );
+                options.AddPolicy("OnlyAdmin", policy => policy.RequireAssertion(h => 
+                    h.User.FindFirstValue(ClaimTypes.Role).Contains("Admin"))
+                );
+                options.AddPolicy("OnlyCustomer", policy => policy.RequireAssertion(h => 
+                    h.User.FindFirstValue(ClaimTypes.Role).Contains("Customer"))
+                );
+
+                // Mesclar role na policy
+                options.AddPolicy("OnlyManagerOrAdmin", policy => policy.RequireAssertion(h => 
+                    h.User.FindFirstValue(ClaimTypes.Role).Contains("Manager")
+                    || h.User.FindFirstValue(ClaimTypes.Role).Contains("Admin")
+                ));
+                options.AddPolicy("OnlyAdminOrCustumer", policy => policy.RequireAssertion(h =>
+                    h.User.FindFirstValue(ClaimTypes.Role).Contains("Admin")
+                    || h.User.FindFirstValue(ClaimTypes.Role).Contains("Customer")
+                ));
+                options.AddPolicy("OnlyManagerOrCustomer", policy => policy.RequireAssertion(h =>
+                    h.User.FindFirstValue(ClaimTypes.Role).Contains("Manager")
+                    || h.User.FindFirstValue(ClaimTypes.Role).Contains("Customer")
+                ));
+                options.AddPolicy("AllManagerOrAdminOrCustomer", policy => policy.RequireAssertion(h =>
+                    h.User.FindFirstValue(ClaimTypes.Role).Contains("Manager")
+                    || h.User.FindFirstValue(ClaimTypes.Role).Contains("Admin")
+                    || h.User.FindFirstValue(ClaimTypes.Role).Contains("Customer")
+                ));
+            });
+
+            var app = builder.Build();
             app.UseCors("AllowSpecificOrigin");
             app.UseMiddleware<InterceptExceptionMiddleware>();
 
@@ -78,14 +119,11 @@ public class Program
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseBasicHealthChecks();
-
             app.MapControllers();
-
             app.Run();
         }
         catch (Exception ex)

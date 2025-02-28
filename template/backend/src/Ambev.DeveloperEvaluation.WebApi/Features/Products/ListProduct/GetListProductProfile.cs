@@ -3,6 +3,7 @@ using Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.Application.Products.GetListProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.ListProduct;
+using Ambev.DeveloperEvaluation.Domain.Common;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
 
@@ -21,11 +22,20 @@ public class GetListProductProfile : Profile
             })
             .ReverseMap();
 
+
+        CreateMap<Rating, RatingsResponse>()
+        .BeforeMap((source, dist) =>
+        {
+            dist.Rate = source.Rate;
+            dist.Count = source.Count;
+        })
+        .ReverseMap();
+
         CreateMap<GetListProductResult, GetProductListResponse>()
         .BeforeMap((source, dist) =>
         {
-            dist.Price = source.Price;
             dist.Id = source.Id;
+            dist.Price = source.Price;
             dist.Title = source.Title;
             dist.Price = source.Price;
             dist.Description = source.Description;
@@ -33,7 +43,6 @@ public class GetListProductProfile : Profile
             dist.Image = source.Image;
             dist.Rating.Rate = source.Rating.Rate;
             dist.Rating.Count = source.Rating.Count;
-        })
-        .ReverseMap();
+        });
     }
 }

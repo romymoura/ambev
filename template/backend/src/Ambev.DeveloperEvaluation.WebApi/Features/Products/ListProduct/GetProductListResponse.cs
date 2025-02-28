@@ -12,5 +12,5 @@ public class GetProductListResponse
     public string Description { get; set; } = string.Empty;
     public string Category { get; set; } = string.Empty;
     public string Image { get; set; } = string.Empty;
-    public RatingsResponse Rating { get; set; } = new();
+    public RatingsResponse Rating { get; set; } = new RatingsResponse();
 }

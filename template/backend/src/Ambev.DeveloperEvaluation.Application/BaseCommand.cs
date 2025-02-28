@@ -5,6 +5,9 @@ namespace Ambev.DeveloperEvaluation.Application;
 
 public class BaseCommand
 {
+    public string Key { get; set; }
+    public TimeSpan Expiration { get; set; }
+
     public virtual ValidationResultDetail Validate()
     {
         return new ValidationResultDetail();

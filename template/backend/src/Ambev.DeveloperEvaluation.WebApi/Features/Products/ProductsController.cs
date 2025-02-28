@@ -3,12 +3,14 @@ using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.ListProduct;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Policy = "AllManagerOrAdminOrCustomer")]
 public class ProductsController : BaseController
 {
     public ProductsController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }

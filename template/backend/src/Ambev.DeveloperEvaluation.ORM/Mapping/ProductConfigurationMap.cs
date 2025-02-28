@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Domain.Common;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -45,4 +46,6 @@ public class ProductConfigurationMap : IEntityTypeConfiguration<Product>
         builder.Property(u => u.CreatedAt).HasDefaultValue(DateTime.Now);
         builder.Property(u => u.UpdatedAt);
     }
+
+    
 }
