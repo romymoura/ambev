@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 
 namespace Ambev.DeveloperEvaluation.Cache;
 
@@ -24,6 +25,7 @@ public class RedisExpirationBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _logger.LogInformation("Serviço de monitoramento de expiração Redis iniciado");
+
 
         await _subscriber.SubscribeToKeyExpirationAsync(async (expiredKey) =>
         {

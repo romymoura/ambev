@@ -1,6 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Cache;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Domain.Services;
+using Ambev.DeveloperEvaluation.NoSql.MDb;
 using Ambev.DeveloperEvaluation.ORM;
 using Ambev.DeveloperEvaluation.ORM.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -35,13 +36,17 @@ public class InfrastructureModuleInitializer : IModuleInitializer
             return redis;
         });
 
+        // Cache service
         builder.Services.AddTransient<IRedisCacheService, RedisCacheService>();
-        //builder.Services.AddSingleton<IRedisCacheService, RedisCacheService>();
-
+        
         // Notificação Cache
         builder.Services.AddSingleton<IRedisKeyExpirationSubscriber, RedisKeyExpirationSubscriber>();
 
         // Notificação Cache background
         builder.Services.AddHostedService<RedisExpirationBackgroundService>(); // Listener de expiração das chaves do Redis.
+
+
+        // Mongodb
+        builder.Services.AddSingleton<IMongoDbService, MongoDbService>();
     }
 }

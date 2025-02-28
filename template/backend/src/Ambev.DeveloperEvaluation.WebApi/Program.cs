@@ -5,6 +5,7 @@ using Ambev.DeveloperEvaluation.Common.Logging;
 using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.IoC;
+using Ambev.DeveloperEvaluation.NoSql.MDb;
 using Ambev.DeveloperEvaluation.ORM;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
@@ -68,14 +69,14 @@ public class Program
 
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-            // Add Redis
+            // Add Settings Redis
             builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection("Redis"));
-            
-            //var redisConnectionString = builder.Configuration.GetConnectionString("Redis") ?? string.Empty;
-            //builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnectionString));
-            
 
-            // Authorization services
+            // Add Setting Mongodb
+            builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoSettings"));
+
+
+            // Authorization service, policy
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy("OnlyManager", policy => policy.RequireAssertion(h => 

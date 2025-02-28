@@ -3,12 +3,12 @@
 namespace Ambev.DeveloperEvaluation.Application.Cache;
 
 /// <summary>
-/// Profile for mapping between User entity and CreateUserResponse
+/// Profile for mapping Cache
 /// </summary>
 public class CacheProfile : Profile
 {
     /// <summary>
-    /// Initializes the mappings for CreateUser operation
+    /// Initializes the mappings for cache
     /// </summary>
     public CacheProfile()
     {

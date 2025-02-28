@@ -5,7 +5,7 @@ using Ambev.DeveloperEvaluation.Domain.Common;
 namespace Ambev.DeveloperEvaluation.Application.Products.GetListProduct;
 
 /// <summary>
-/// Profile for mapping between User entity and CreateUserResponse
+/// Profile for mapping between ListProduct
 /// </summary>
 public class GetListProductProfile : Profile
 {

@@ -3,7 +3,7 @@ using Ambev.DeveloperEvaluation.Common.Security;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-
+using Ambev.DeveloperEvaluation.Application.Cart.PayShoppingUser;
 namespace Ambev.DeveloperEvaluation.IoC.ModuleInitializers;
 
 public class ApplicationModuleInitializer : IModuleInitializer
@@ -21,5 +21,9 @@ public class ApplicationModuleInitializer : IModuleInitializer
 
         builder.Services.AddTransient(typeof(IRequestHandler<UpdateCacheCommand<dynamic>, CacheResult>), typeof(UpdateCacheCommandHandler<dynamic>));
         builder.Services.AddTransient(typeof(IRequestHandler<DeleteCacheCommand, CacheResult>), typeof(DeleteCacheCommandHandler));
+
+
+        // Cart
+        builder.Services.AddTransient(typeof(IRequestHandler<PayShoppingUserCommand, PayShoppingUserResult>), typeof(PayShoppingUserCommandHandller));
     }
 }
