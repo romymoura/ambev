@@ -1,7 +1,41 @@
-# Developer Evaluation Project
-<img src="https://github.com/romymoura/ambev/blob/feature/products/Diagrama%20da%20aplica%C3%A7%C3%A3o%20vis%C3%A3o%20de%20negocio.svg">
+# Flow documents
 
+![Descrição da imagem](assets/fluxo.png)
 
+# Provision API in docker with docker-compose
+
+ 	## Prerequisites
+ * Install docker on your machine, follow the documentation: https://docs.docker.com/desktop/setup/install/windows-install/
+ * Instale o docker-compose em sua maquina, segue a documentação: https://docs.docker.com/compose/install/
+ 
+ * Navegue até a pasta onde está o docker-compose e faça o seguinte comando: docker-compose up -d
+	* Obs: Images Postgress, Mongodb, Redis, API
+
+ * If you prefer, you can run VS2022 to check the APIs.
+ 
+	## Postman the collection in ./template/collection-postman
+  
+# Database.
+
+  * Open "Package Manager Console" selected dll .ORM where is migrations and exc: Update-Database, then created tables and data table
+  * Access portal with users:  
+    <pre>
+      Obs: TSC is my corporation
+      User: manager@tsc.com
+      pass: @Manager123
+      profile: Manager
+
+      User: admin@tsc.com
+      pass: @Admin123
+      profile: Admin
+
+      User: customer@tsc.com
+      pass: @Customer123
+      profile: Customer   
+    </pre>
+   
+  
+	
 # Developer Evaluation Project /// Doc implementation
 
 `READ CAREFULLY`
