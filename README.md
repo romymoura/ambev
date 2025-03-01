@@ -27,21 +27,6 @@ Refazer vídeos ficou  ruim
 # Database.
 
   * Open "Package Manager Console" selected dll .ORM where is migrations and exc: Update-Database, then created tables and data table
-  * Access portal with users:  
-    <pre>
-      Obs: TSC is my corporation
-      User: manager@tsc.com
-      pass: @Manager123
-      profile: Manager
-
-      User: admin@tsc.com
-      pass: @Admin123
-      profile: Admin
-
-      User: customer@tsc.com
-      pass: @Customer123
-      profile: Customer   
-    </pre>
    
 ![image](https://github.com/user-attachments/assets/ae31345f-d5f3-45a2-a88b-86b222118aa8)
 
@@ -61,6 +46,21 @@ Refazer vídeos ficou  ruim
 
 ![image](https://github.com/user-attachments/assets/c0cb5002-ccfc-4757-87ad-4c0c477d6ffb)
 
+  * Access portal with users:  
+    <pre>
+      Obs: TSC is my corporation
+      User: manager@tsc.com
+      pass: @Manager123
+      profile: Manager
+
+      User: admin@tsc.com
+      pass: @Admin123
+      profile: Admin
+
+      User: customer@tsc.com
+      pass: @Customer123
+      profile: Customer   
+    </pre>
   	
 	
 # Developer Evaluation Project /// Doc implementation
