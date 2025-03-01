@@ -1,7 +1,7 @@
 # Videos institucionais.
-[▶ Explicação repo backend -> Assista ao vídeo no Google Drive](https://drive.google.com/file/d/15Hoy73Tm-T32hBovE8PT75Juh9zdjXCm/view?usp=drive_link)
+[▶ Explicação projeto backend -> Assista ao vídeo no Google Drive](https://drive.google.com/file/d/15Hoy73Tm-T32hBovE8PT75Juh9zdjXCm/view?usp=drive_link)
 
-[▶ Explicação projeto backend -> Assista ao vídeo no Google Drive](https://drive.google.com/file/d/13XT1uebFouq8YkJiM0yVp5IeRaUlD0Wv/view?usp=drive_link)
+[▶ Explicação repo github backend -> Assista ao vídeo no Google Drive](https://drive.google.com/file/d/13XT1uebFouq8YkJiM0yVp5IeRaUlD0Wv/view?usp=drive_link)
 
 
 # Flow documents
