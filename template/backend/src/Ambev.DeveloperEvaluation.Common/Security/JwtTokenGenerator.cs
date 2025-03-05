@@ -1,6 +1,10 @@
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics.Metrics;
 using System.IdentityModel.Tokens.Jwt;
+using System.Runtime;
+using System.Runtime.Intrinsics.Arm;
 using System.Security.Claims;
 using System.Text;
 
@@ -12,14 +16,16 @@ namespace Ambev.DeveloperEvaluation.Common.Security;
 public class JwtTokenGenerator : IJwtTokenGenerator
 {
     private readonly IConfiguration _configuration;
+    private readonly SecuritySettings _securitySettions;
 
     /// <summary>
     /// Initializes a new instance of the JWT token generator.
     /// </summary>
     /// <param name="configuration">Application configuration containing the necessary keys for token generation.</param>
-    public JwtTokenGenerator(IConfiguration configuration)
+    public JwtTokenGenerator(IConfiguration configuration, IOptions<SecuritySettings> securitySettions)
     {
         _configuration = configuration;
+        _securitySettions = securitySettions.Value;
     }
 
     /// <summary>
@@ -39,8 +45,8 @@ public class JwtTokenGenerator : IJwtTokenGenerator
     public string GenerateToken(IUser user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]);
-
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_securitySettions?.IssuerKey ?? string.Empty));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var claims = new[]
         {
            new Claim(ClaimTypes.NameIdentifier, user.Id),
@@ -48,16 +54,16 @@ public class JwtTokenGenerator : IJwtTokenGenerator
            new Claim(ClaimTypes.Role, user.Role)
        };
 
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddHours(8),
-            SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(key),
-                SecurityAlgorithms.HmacSha256Signature)
-        };
+        var dtExpire = DateTime.Now.AddMinutes(_securitySettions?.TokenExp ?? 10);
+        var tokenSecurity = new JwtSecurityToken(
+            issuer: _securitySettions?.Issuer,
+            audience: _securitySettions?.TokenAudirence,
+            claims: claims,
+            expires: dtExpire,
+            signingCredentials: creds
+        );
 
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+        var token = tokenHandler.WriteToken(tokenSecurity);
+        return token;
     }
 }

@@ -1,5 +1,6 @@
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Enums;
+using Ambev.DeveloperEvaluation.Domain.Validation;
 using Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData;
 using Xunit;
 
@@ -55,7 +56,7 @@ public class UserTests
         var user = UserTestData.GenerateValidUser();
 
         // Act
-        var result = user.Validate();
+        var result = user.Validate<UserValidator, User>();
 
         // Assert
         Assert.True(result.IsValid);
@@ -80,7 +81,7 @@ public class UserTests
         };
 
         // Act
-        var result = user.Validate();
+        var result = user.Validate<UserValidator, User>();
 
         // Assert
         Assert.False(result.IsValid);

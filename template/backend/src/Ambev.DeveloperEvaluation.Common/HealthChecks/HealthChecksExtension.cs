@@ -80,7 +80,7 @@ public static class HealthChecksExtension
         var readinessOptions = WriteHealtCheckRespose(app, "readiness");
         app.UseHealthChecks("/health/ready", readinessOptions);
 
-        var healthOptions = WriteHealtCheckRespose(app, string.Empty);
+        var healthOptions = WriteHealtCheckRespose(app, "NovoTesteHealth");
         app.UseHealthChecks("/health", healthOptions);
 
         var logger = app.Services.GetRequiredService<ILogger<HealthCheckService>>();
