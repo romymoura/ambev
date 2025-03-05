@@ -48,9 +48,9 @@ public class Program
                 options.AddPolicy("AllowSpecificOrigin", policy =>
                 {
                     policy.WithOrigins("*") // Permite chamadas do Angular
-                          .AllowAnyMethod() // Permite qualquer método (GET, POST, PUT, DELETE, etc.)
-                          .AllowAnyHeader(); // Permite qualquer cabeçalho
-                                             //.AllowCredentials(); // Permite envio de credenciais (cookies, autenticação)
+                          .AllowAnyMethod() // Permite qualquer mÃ©todo (GET, POST, PUT, DELETE, etc.)
+                          .AllowAnyHeader(); // Permite qualquer cabeÃ§alho
+                                             //.AllowCredentials(); // Permite envio de credenciais (cookies, autenticaÃ§Ã£o)
                 });
             });
 

@@ -1,3 +1,12 @@
+<!--
+Refazer vídeos ficou  ruim 
+
+# Videos institucionais.
+[▶ Explicação projeto backend -> Assista ao vídeo no Google Drive](https://drive.google.com/file/d/15Hoy73Tm-T32hBovE8PT75Juh9zdjXCm/view?usp=drive_link)
+
+[▶ Explicação repo github backend -> Assista ao vídeo no Google Drive](https://drive.google.com/file/d/13XT1uebFouq8YkJiM0yVp5IeRaUlD0Wv/view?usp=drive_link)
+
+-->
 # Flow documents
 
 ![Descrição da imagem](assets/fluxo.png)
@@ -18,6 +27,25 @@
 # Database.
 
   * Open "Package Manager Console" selected dll .ORM where is migrations and exc: Update-Database, then created tables and data table
+   
+![image](https://github.com/user-attachments/assets/ae31345f-d5f3-45a2-a88b-86b222118aa8)
+
+![image](https://github.com/user-attachments/assets/9b123c43-3633-4250-a4b3-15cfd9f10d20)
+
+![image](https://github.com/user-attachments/assets/0f3dda9e-25bf-44b1-81d0-f4453fca5a10)
+
+![image](https://github.com/user-attachments/assets/ca8e89af-07a6-4f5d-9fe4-bf212fa2ed5f)
+
+![image](https://github.com/user-attachments/assets/ed258cd0-16c1-4c08-9be0-d296fe9d26e7)
+
+![image](https://github.com/user-attachments/assets/f4dc5f7b-53f8-4dcd-bbc9-c43703786069)
+
+![image](https://github.com/user-attachments/assets/645e918d-ce5c-4f5f-9337-a6a76831757f)
+
+![image](https://github.com/user-attachments/assets/11d15dc1-e25d-4338-957f-0954352a5994)
+
+![image](https://github.com/user-attachments/assets/c0cb5002-ccfc-4757-87ad-4c0c477d6ffb)
+
   * Access portal with users:  
     <pre>
       Obs: TSC is my corporation
@@ -33,23 +61,6 @@
       pass: @Customer123
       profile: Customer   
     </pre>
-   
-![image](https://github.com/user-attachments/assets/ae31345f-d5f3-45a2-a88b-86b222118aa8)
-
-![image](https://github.com/user-attachments/assets/9b123c43-3633-4250-a4b3-15cfd9f10d20)
-
-![image](https://github.com/user-attachments/assets/0f3dda9e-25bf-44b1-81d0-f4453fca5a10)
-
-![image](https://github.com/user-attachments/assets/ca8e89af-07a6-4f5d-9fe4-bf212fa2ed5f)
-
-![image](https://github.com/user-attachments/assets/ed258cd0-16c1-4c08-9be0-d296fe9d26e7)
-
-![image](https://github.com/user-attachments/assets/f4dc5f7b-53f8-4dcd-bbc9-c43703786069)
-
-![image](https://github.com/user-attachments/assets/11d15dc1-e25d-4338-957f-0954352a5994)
-
-![image](https://github.com/user-attachments/assets/c0cb5002-ccfc-4757-87ad-4c0c477d6ffb)
-
   	
 	
 # Developer Evaluation Project /// Doc implementation
