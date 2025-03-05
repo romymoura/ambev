@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Text;
 
 namespace Ambev.DeveloperEvaluation.Common.Security
@@ -11,34 +11,35 @@ namespace Ambev.DeveloperEvaluation.Common.Security
     {
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-
-            var secretKey = configuration["Jwt:SecretKey"]?.ToString();
-            ArgumentException.ThrowIfNullOrWhiteSpace(secretKey);
-
-            var key = Encoding.ASCII.GetBytes(secretKey);
-
-            services.AddAuthentication(x =>
+            services.AddSingleton<SecuritySettings>();
+            using (var serviceProvider = services.BuildServiceProvider())
             {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
+                SecuritySettings settings = serviceProvider.GetRequiredService<IOptions<SecuritySettings>>().Value;
+                ArgumentException.ThrowIfNullOrWhiteSpace(settings?.IssuerKey);
+
+                var key = Encoding.UTF8.GetBytes(settings?.IssuerKey ?? string.Empty);
+
+                services.AddAuthentication(x =>
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
-
-            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidAudience = settings?.TokenAudirence,
+                        ValidIssuer = settings?.Issuer,
+                        ValidateIssuerSigningKey = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+                services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            }
             return services;
         }
     }

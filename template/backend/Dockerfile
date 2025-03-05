@@ -1,9 +1,8 @@
-
+#
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
+#USER app
+USER root
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
@@ -14,6 +13,9 @@ COPY ["src/Ambev.DeveloperEvaluation.Common/Ambev.DeveloperEvaluation.Common.csp
 COPY ["src/Ambev.DeveloperEvaluation.Domain/Ambev.DeveloperEvaluation.Domain.csproj", "src/Ambev.DeveloperEvaluation.Domain/"]
 COPY ["src/Ambev.DeveloperEvaluation.IoC/Ambev.DeveloperEvaluation.IoC.csproj", "src/Ambev.DeveloperEvaluation.IoC/"]
 COPY ["src/Ambev.DeveloperEvaluation.ORM/Ambev.DeveloperEvaluation.ORM.csproj", "src/Ambev.DeveloperEvaluation.ORM/"]
+COPY ["src/Ambev.DeveloperEvaluation.Cache/Ambev.DeveloperEvaluation.Cache.csproj", "src/Ambev.DeveloperEvaluation.Cache/"]
+COPY ["src/Ambev.DeveloperEvaluation.NoSql/Ambev.DeveloperEvaluation.NoSql.csproj", "src/Ambev.DeveloperEvaluation.NoSql/"]
+
 RUN dotnet restore "./src/Ambev.DeveloperEvaluation.WebApi/Ambev.DeveloperEvaluation.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/Ambev.DeveloperEvaluation.WebApi"
@@ -26,4 +28,8 @@ RUN dotnet publish "./Ambev.DeveloperEvaluation.WebApi.csproj" -c $BUILD_CONFIGU
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV ASPNETCORE_ENVIRONMENT=Docker
+EXPOSE 8080 8081
+
 ENTRYPOINT ["dotnet", "Ambev.DeveloperEvaluation.WebApi.dll"]
+##########################################################################################################
